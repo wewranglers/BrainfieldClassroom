@@ -33,7 +33,7 @@ const Student = () => {
   return (
     <div className='px-5 mt-3'>
       <div className='d-flex justify-content-center'>
-        <h3>Primary X, Salolo</h3>
+        {/* <h3>Primary X, Salolo</h3> */}
       </div>
       <Link to='/dashboard/add_student' className='btn btn-success'>
         Add Student
@@ -45,10 +45,12 @@ const Student = () => {
               <th>Name</th>
               <th>Image</th>
               <th>Email</th>
+              <th>Classroom</th>
               <th>Addreess</th>
-              <th>Height(cm)</th>
+              <th>Debt Owed(NGN)</th>
+              <th>Gender(M=1, F=2)</th>
               <th>Action</th>
-              {/* <th>Category</th> */}
+              
             </tr>
           </thead>
           <tbody>
@@ -60,8 +62,10 @@ const Student = () => {
                     <img src={"http://localhost:3000/images/" + s.image} className="student_image" alt="student_image" />
                   </td>
                   <td>{s.email}</td>
+                  <td>{s.class_code}</td>
                   <td>{s.address}</td>
-                  <td>{s.height}</td>
+                  <td>{s.debt}</td>
+                  <td>{s.category_id}</td>
                   <td>
                     <Link 
                       to={`/dashboard/edit_student/` + s.id} 

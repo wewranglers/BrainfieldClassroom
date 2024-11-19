@@ -8,14 +8,20 @@ const AddStudent = () => {
         email: '',
         password: '',
         address: '',
-        height: '',
+        debt: '',
         image: '',
-        category_id: '',    
+        category_id: '',  
+        class_code: ''  
     })
 
+    //state for storing classrooms from the useEffect below
+    const [classroom, setClassroom] = useState([])
+    //state for storing categories/genders from the useEffect below
     const [category, setCategory] = useState([])
+
     const navigate = useNavigate()
 
+    //get the categories/genders in the select
     useEffect(() => {
         axios.get('http://localhost:3000/auth/category')
             .then(result => {
@@ -24,20 +30,34 @@ const AddStudent = () => {
                 }else{
                     alert(result.data.error)
                 }
-            })
-            .catch(err => console.log(err))
+            }).catch(err => console.log(err))
+    }, [])
+
+    //get the classes in the select
+    useEffect(() => {
+        axios.get('http://localhost:3000/auth/classroom')
+            .then(result => {
+                if(result.data.Result){
+                    setClassroom(result.data.Result)
+                }else{
+                    alert(result.data.error)
+                }
+            }).catch(err => console.log(err))
     }, [])
     
     const handleSubmit = (e) => {
         e.preventDefault()
+
         const formData = new FormData();
+        
         formData.append('name', student.name);
         formData.append('email', student.email);
         formData.append('password', student.password);
         formData.append('address', student.address);
-        formData.append('height', student.height);
+        formData.append('debt', student.debt);
         formData.append('image', student.image);
         formData.append('category_id', student.category_id);
+        formData.append('class_code', student.class_code);
         
         axios.post('http://localhost:3000/auth/add_student', formData)
             .then(result => {
@@ -104,13 +124,13 @@ const AddStudent = () => {
                     </div>
                     
                     <div className='col-12'>
-                        <label htmlFor='inputHeight' className='form-label'>Height</label>
+                        <label htmlFor='inputdebt' className='form-label'>debt</label>
                         <input 
                             type='number' 
                             className='form-control rounded-0' 
-                            id='inputHeight' 
-                            placeholder='Enter height'
-                            onChange={e => setStudent({...student, height: e.target.value})} 
+                            id='inputdebt' 
+                            placeholder='Enter debt'
+                            onChange={e => setStudent({...student, debt: e.target.value})} 
                         />
                     </div>
                     <div className='col-12 mb-3'>
@@ -133,6 +153,19 @@ const AddStudent = () => {
                         >
                             {category.map(c => {
                                 return <option key={c.id} value={c.id}>{c.name}</option>
+                            })}
+                        </select>
+                    </div>
+                    <div className='col-12'>
+                        <label htmlFor='classroom' className='form-lablel'>Classroom</label>
+                        <select
+                            name='classroom' 
+                            id='classroom'
+                            className='form-select '
+                            onChange={e => setStudent({...student, class_code: e.target.value})}
+                        >
+                            {classroom.map(c => {
+                                return <option key={c.class_code} value={c.class_code}>{c.classname}</option>
                             })}
                         </select>
                     </div>

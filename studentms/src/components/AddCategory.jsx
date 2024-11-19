@@ -8,6 +8,7 @@ const AddCategory = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        
         axios.post('http://localhost:3000/auth/add_category', { category })
             .then(result => {
                 if (result.data.Status) {
@@ -22,11 +23,12 @@ const AddCategory = () => {
     return (
         <div className='d-flex justify-content-center align-items-center vh-75'>
             <div className='p-3 rounded w-50 border'>
-                <h2>Add Category</h2>
+                <h2>Add Gender</h2>
                 <form onSubmit={handleSubmit}>
                     <div className='mb-3'>
-                        <label htmlFor='email'><strong> Category: </strong></label>
+                        <label htmlFor='gender'><strong> Gender: </strong></label>
                         <input
+                            id='gender'
                             type='text'
                             name='category'
                             placeholder='Enter Academic Category'

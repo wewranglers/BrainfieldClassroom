@@ -6,8 +6,10 @@ import Dashboard from './components/Dashboard';
 import Home from './components/Home';
 import Student from './components/Student';
 import Category from './components/Category';
+import Classroom from './components/Classroom';
 import Profile from './components/Profile';
 import AddCategory from './components/AddCategory';
+import AddClassroom from './components/AddClassroom';
 import AddStudent from './components/AddStudent';
 import EditStudent from './components/EditStudent';
 
@@ -20,8 +22,10 @@ function App() {
           <Route path='' element={<Home />}></Route>
           <Route path='/dashboard/student' element={<Student />}></Route>
           <Route path='/dashboard/category' element={<Category />}></Route>
+          <Route path='/dashboard/classroom' element={<Classroom />}></Route>
           <Route path='/dashboard/profile' element={<Profile />}></Route>
           <Route path='/dashboard/add_category' element={<AddCategory />}></Route>
+          <Route path='/dashboard/add_classroom' element={<AddClassroom />}></Route>
           <Route path='/dashboard/add_student' element={<AddStudent />}></Route>
           <Route path='/dashboard/edit_student/:id' element={<EditStudent />}></Route>
         </Route>
