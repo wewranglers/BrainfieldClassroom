@@ -8,10 +8,11 @@ const Dashboard = () => {
     axios.defaults.withCredentials = true;
 
     const handleLogOut = () => {
-        axios.get('http://localhost:3000/auth/logout')
+        axios.get('http://localhost:3000/teacher/logout')
             .then(result => {
                 if (result.data.Status) {
-                    navigate('/teacherlogin')
+                    localStorage.removeItem("valid")
+                    navigate('/')
                 }
             })
     }
@@ -45,7 +46,16 @@ const Dashboard = () => {
                                     className='nav-link px-0 align-middle text-white'
                                 >
                                     <i className='fs-4 bi-people ms-2'></i>
-                                    <span>My Students</span>
+                                    <span>All Students</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    to='/dashboard/select_classroom'
+                                    className='nav-link px-0 align-middle text-white'
+                                >
+                                    <i className='fs-4 bi-people ms-2'></i>
+                                    <span>View Classroom</span>
                                 </Link>
                             </li>
                             <li className='w-100'>

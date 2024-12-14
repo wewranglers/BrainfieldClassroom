@@ -5,13 +5,13 @@ import axios from 'axios';
 
 const AddClassroom = () => {
     const [classroom, setClassroom] = useState()
-    const [class_code, setClassCode] = useState()
+    const [class_id, setClassCode] = useState()
     const navigate = useNavigate()
 
     const handleSubmit = (e) => {
         e.preventDefault();
         
-        axios.post('http://localhost:3000/auth/add_classroom', { classroom, class_code })
+        axios.post('http://localhost:3000/teacher/add_classroom', { classroom, class_id })
             .then(result => {
                 if (result.data.Status) {
                     navigate('/dashboard/classroom')
@@ -38,14 +38,14 @@ const AddClassroom = () => {
                         />    
                     </div>
                     <div className='mb-3'>
-                        <label htmlFor='class_code'><strong> Classroom Code: </strong></label>
+                        <label htmlFor='class_id'><strong> Classroom Code: </strong></label>
                         <input
-                            id='class_code'
+                            id='class_id'
                             type='text'
-                            name='classroom'
-                            placeholder='Enter Classroom Name'
+                            name='class_id'
+                            placeholder='Enter Class Code'
                             className='form-control rounded-0'
-                            onChange={e => setClassroom(e.target.value)}
+                            onChange={e => setClassCode(e.target.value)}
                         />    
                     </div>
                     <button type='submit' className='btn btn-success w-100 rounded-0 mb-2'>Add Classroom</button>

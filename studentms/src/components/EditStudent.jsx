@@ -10,17 +10,17 @@ const EditStudent = () => {
     const [student, setStudent] = useState({
         name: '',
         email: '',
-        debt: '',
         address: '',
+        debt: '',
         category_id: '',
-        class_code: '',
+        class_id: '',
     })
 
     const [category, setCategory] = useState([])
     const [classroom, setClassroom] = useState([])
 
     useEffect(() => {
-        axios.get('http://localhost:3000/auth/category')
+        axios.get('http://localhost:3000/teacher/category')
             .then(result => {
                 if (result.data.Status) {
                     setCategory(result.data.Result)
@@ -28,7 +28,7 @@ const EditStudent = () => {
                     alert(result.data.Error)
                 }
             }).catch(err => console.log(err))
-        axios.get('http://localhost:3000/auth/student' + id)
+        axios.get('http://localhost:3000/teacher/student' + id)
             .then(result => {
                 setStudent({
                     ...student,
@@ -37,13 +37,13 @@ const EditStudent = () => {
                     address: result.data.Result[0].address,
                     debt: result.data.Result[0].debt,
                     category_id: result.data.Result[0].category_id,
-                    class_code: result.data.Result[0].class_code,
+                    class_id: result.data.Result[0].class_id,
                 })
             }).catch(err => console.log(err))
     }, [])
 
     useEffect(() => {
-        axios.get('http://localhost:3000/auth/classroom')
+        axios.get('http://localhost:3000/teacher/classroom')
             .then(result => {
                 if (result.data.Status) {
                     setClassroom(result.data.Result)
@@ -51,7 +51,8 @@ const EditStudent = () => {
                     alert(result.data.Error)
                 }
             }).catch(err => console.log(err))
-        axios.get('http://localhost:3000/auth/student' + id)
+
+        axios.get('http://localhost:3000/teacher/student' + id)
             .then(result => {
                 setStudent({
                     ...student,
@@ -60,18 +61,14 @@ const EditStudent = () => {
                     address: result.data.Result[0].address,
                     debt: result.data.Result[0].debt,
                     category_id: result.data.Result[0].category_id,
-                    class_code: result.data.Result[0].class_code,
+                    class_id: result.data.Result[0].class_id,
                 })
             }).catch(err => console.log(err))
     }, [])
-
-    const handleChange = (e) => {
-        setStudent({ ...data, [e.target.name]: e.target.value });
-      };
-
+    
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.put('http://localhost:3000/auth/edit_student/' + id, student)
+        axios.put('http://localhost:3000/teacher/edit_student/' + id, student)
             .then(result => {
                 if (result.data.Status) {
                     navigate('/dashboard/student')
@@ -96,8 +93,8 @@ const EditStudent = () => {
                             id='inputName'
                             placeholder="Enter Student's name"
                             value={student.name}
-                            //onChange={e => setStudent({ ...student, name: e.target.value })}
-                            onChange={handleChange}
+                            onChange={e => setStudent({ ...student, name: e.target.value })}
+                        //onChange={handleChange}
                         />
                     </div>
                     <div className='col-12'>
@@ -111,8 +108,8 @@ const EditStudent = () => {
                             placeholder='Enter Email Address'
                             autoComplete='off'
                             value={student.email}
-                            // onChange={e => setStudent({ ...student, email: e.target.value })}
-                            onChange={handleChange}
+                            onChange={e => setStudent({ ...student, email: e.target.value })}
+                        //onChange={handleChange}
                         />
                     </div>
 
@@ -125,8 +122,8 @@ const EditStudent = () => {
                             placeholder='200, Sagbinatu Road, Belembe, A/Egba, lagos'
                             autoComplete='off'
                             value={student.address}
-                            // onChange={e => setStudent({ ...student, address: e.target.value })}
-                            onChange={handleChange}
+                            onChange={e => setStudent({ ...student, address: e.target.value })}
+                        //onChange={handleChange}
                         />
                     </div>
 
@@ -138,19 +135,19 @@ const EditStudent = () => {
                             id='inputdebt'
                             placeholder='Enter debt'
                             debt={student.debt}
-                            // onChange={e => setStudent({ ...student, debt: e.target.value })}
-                            onChange={handleChange}
+                            onChange={e => setStudent({ ...student, debt: e.target.value })}
+                        //onChange={handleChange}
                         />
                     </div>
-                    
+
                     <div className='col-12'>
                         <label htmlFor='category' className='form-lablel'>Gender</label>
                         <select
                             name='category'
                             id='category'
                             className='form-select '
-                            // onChange={e => setStudent({ ...student, category_id: e.target.value })}
-                            onChange={handleChange}
+                            onChange={e => setStudent({ ...student, category_id: e.target.value })}
+                        //onChange={handleChange}
                         >
                             {category.map(c => {
                                 return <option key={c.id} value={c.id}>{c.name}</option>
@@ -159,17 +156,34 @@ const EditStudent = () => {
                     </div>
 
                     <div className='col-12'>
-                        <label htmlFor='classroom' className='form-lablel'>Class Code</label>
+                        <label htmlFor='classname' className='form-lablel'>Classroom Name</label>
                         <select
-                            name='classroom'
-                            id='classroom'
+                            name='classname'
+                            id='classname'
                             className='form-select '
-                            // onChange={e => setStudent({ ...student, class_code: e.target.value })}
-                            onChange={handleChange}
+                            onChange={e => setStudent({ ...student, classname: e.target.value })}
+                        //onChange={handleChange}
                         >
                             {
                                 classroom.map(c => {
-                                    return <option key={c.class_code} value={c.class_code}>{c.classname}</option>
+                                    return <option key={c.class_id} value={c.classname}>{c.classname}</option>
+                                })
+                            }
+                        </select>
+                    </div>
+
+                    <div className='col-12'>
+                        <label htmlFor='class_id' className='form-lablel'>Class Code</label>
+                        <select
+                            name='class_id'
+                            id='class_id'
+                            className='form-select '
+                            onChange={e => setStudent({ ...student, class_id: e.target.value })}
+                        //onChange={handleChange}
+                        >
+                            {
+                                classroom.map(c => {
+                                    return <option key={c.class_id} value={c.class_id}>{c.class_id}</option>
                                 })
                             }
                         </select>

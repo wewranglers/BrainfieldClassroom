@@ -15,7 +15,7 @@ const Home = () => {
   }, [])
 
   const teacherCount = () => {
-    axios.get("http://localhost:3000/auth/teacher_count")
+    axios.get("http://localhost:3000/teacher/teacher_count")
       .then(result => {
         if (result.data.Status) {
           setTeacherTotal(result.data.Result[0].teacher)
@@ -24,7 +24,7 @@ const Home = () => {
   }
 
   const studentCount = () => {
-    axios.get("http://localhost:3000/auth/student_count")
+    axios.get("http://localhost:3000/teacher/student_count")
       .then(result => {
         if (result.data.Status) {
           setStudentTotal(result.data.Result[0].student)
@@ -33,7 +33,7 @@ const Home = () => {
   }
 
   const debtCount = () => {
-    axios.get("http://localhost:3000/auth/debt_count")
+    axios.get("http://localhost:3000/teacher/debt_count")
       .then(result => {
         if (result.data.Status) {
           setdebtTotal(result.data.Result[0].debtOfStudent)
@@ -42,7 +42,7 @@ const Home = () => {
   }
 
   const TeacherRecords = () => {
-    axios.get('http://localhost:3000/auth/teacher_records')
+    axios.get('http://localhost:3000/teacher/teacher_records')
       .then(result => {
         if (result.data.Status) {
           setTeachers(result.data.Result)

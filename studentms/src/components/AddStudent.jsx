@@ -11,7 +11,8 @@ const AddStudent = () => {
         debt: '',
         image: '',
         category_id: '',  
-        class_code: ''  
+        classname: '',  
+        class_id: '',
     })
 
     //state for storing classrooms from the useEffect below
@@ -23,7 +24,7 @@ const AddStudent = () => {
 
     //get the categories/genders in the select
     useEffect(() => {
-        axios.get('http://localhost:3000/auth/category')
+        axios.get('http://localhost:3000/teacher/category')
             .then(result => {
                 if(result.data.Result){
                     setCategory(result.data.Result)
@@ -33,9 +34,9 @@ const AddStudent = () => {
             }).catch(err => console.log(err))
     }, [])
 
-    //get the classes in the select
+    //get the classes in the select fields
     useEffect(() => {
-        axios.get('http://localhost:3000/auth/classroom')
+        axios.get('http://localhost:3000/teacher/classroom')
             .then(result => {
                 if(result.data.Result){
                     setClassroom(result.data.Result)
@@ -57,9 +58,10 @@ const AddStudent = () => {
         formData.append('debt', student.debt);
         formData.append('image', student.image);
         formData.append('category_id', student.category_id);
-        formData.append('class_code', student.class_code);
+        formData.append('classname', student.classname);
+        formData.append('class_id', student.class_id);
         
-        axios.post('http://localhost:3000/auth/add_student', formData)
+        axios.post('http://localhost:3000/teacher/add_student', formData)
             .then(result => {
                 if(result.data.Status){
                     navigate('/dashboard/student')
@@ -157,15 +159,29 @@ const AddStudent = () => {
                         </select>
                     </div>
                     <div className='col-12'>
-                        <label htmlFor='classroom' className='form-lablel'>Classroom</label>
+                        <label htmlFor='classname' className='form-lablel'>Classroom</label>
                         <select
-                            name='classroom' 
-                            id='classroom'
+                            name='classname' 
+                            id='classname'
                             className='form-select '
-                            onChange={e => setStudent({...student, class_code: e.target.value})}
+                            onChange={e => setStudent({...student, classname: e.target.value})}
                         >
                             {classroom.map(c => {
-                                return <option key={c.class_code} value={c.class_code}>{c.classname}</option>
+                                return <option key={c.class_id} value={c.classname}>{c.classname}</option>
+                            })}
+                        </select>
+                    </div>
+
+                    <div className='col-12'>
+                        <label htmlFor='classroom' className='form-lablel'>Classroom Code</label>
+                        <select
+                            name='classcode' 
+                            id='classcode'
+                            className='form-select '
+                            onChange={e => setStudent({...student, class_id: e.target.value})}
+                        >
+                            {classroom.map(c => {
+                                return <option key={c.class_id} value={c.class_id}>{c.class_id}</option>
                             })}
                         </select>
                     </div>

@@ -1,4 +1,4 @@
-/*
+
 import mysql from 'mysql';
 
 const con = mysql.createConnection({
@@ -18,8 +18,8 @@ con.connect(function(err){
 })
 
 export default con;
-*/
 
+/*
 import mysql from 'mysql';
 const connection = mysql.createConnection({
     host: 'localhost',     // host for connection
@@ -38,3 +38,4 @@ connection.connect(function(err) {
     }
 });
 export default connection;
+*/

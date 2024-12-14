@@ -1,12 +1,12 @@
 import axios, { Axios } from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 
 const Classroom = () => {
     const [classroom, setClassroom] = useState([])
+    console.log(classroom)
 
     useEffect(() => {
-        axios.get('http://localhost:3000/auth/classroom')
+        axios.get('http://localhost:3000/teacher/classroom')
             .then(result => {
                 if (result.data.Status) {
                     setClassroom(result.data.Result)
@@ -34,7 +34,7 @@ const Classroom = () => {
                     <tbody>
                         {
                             classroom.map(c => {
-                                <tr key={c.class_code}>
+                                <tr key={c.id}>
                                     <td>{c.classname}</td>
                                 </tr>
                             })

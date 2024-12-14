@@ -4,21 +4,18 @@ import './styles.css'
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
-
-
-const Login = () => {
-    // const { id } = useParams()
+const StudentLogin = () => {
     const [values, setValues] = useState({ email: '', password: '', class_id: '' })
     const [error, setError] = useState(null)
 
     const [classroom, setClassroom] = useState([])
 
     useEffect(() => {
-        axios.get('http://localhost:3000/teacher/classroom')
+        axios.get('http://localhost:3000/student/classroom')
             .then(result => {
-                if(result.data.Result){
+                if (result.data.Result) {
                     setClassroom(result.data.Result)
-                }else{
+                } else {
                     alert("error is", result.data.error)
                 }
             }).catch(err => console.log(err))
@@ -29,11 +26,11 @@ const Login = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.post('http://localhost:3000/teacher/teacherlogin', values)
+        axios.post('http://localhost:3000/student/studentlogin', values)
             .then(result => {
                 if (result.data.loginStatus) {
                     localStorage.setItem("valid", true)
-                    navigate('/dashboard')
+                    navigate('/studentdetail/'+result.data.id)
                 } else {
                     setError(result.data.Error)
                 }
@@ -41,12 +38,11 @@ const Login = () => {
             })
             .catch(err => console.log(err))
     }
-
     return (
         <div className='d-flex justify-content-center align-items-center vh-100 loginPage'>
             <div className='p-3 rounded w-50 border loginForm '>
                 <div className='text-warning'>{error && error}</div>
-                <h2>Welcome, Dear Educator</h2>
+                <h3>Welcome, Dear Student/Parent</h3>
 
                 <form onSubmit={handleSubmit}>
                     <div className='mb-3'>
@@ -96,5 +92,4 @@ const Login = () => {
     )
 }
 
-
-export default Login
+export default StudentLogin

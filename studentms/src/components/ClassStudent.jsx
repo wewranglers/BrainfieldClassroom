@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import axios from 'axios';
 
-const Student = () => {
-  const [student, setStudent] = useState([])
+const ClassStudent = () => {
+  const {class_id} = useNavigate();
+  const [classStudent, setClassStudent] = useState([])
   const navigate = useNavigate()
 
   useEffect(() => {
-    axios.get('http://localhost:3000/teacher/student/')
+    axios.get('http://localhost:3000/teacher/classlist'+class_id)
       .then(result => {
         if (result.data.Status) {
-          setStudent(result.data.Result)
-        } else {
-          alert(result.data.Error)
+          setClassStudent(result.data.Result)
         }
       }).catch(err => console.log(err))
   }, [])
@@ -53,7 +52,7 @@ const Student = () => {
           </thead>
           <tbody>
             {
-              student.map(s => (
+              classStudent.map(s => (
                 <tr key={s.id}>
                   <td>{s.name}</td>
                   <td>
@@ -89,4 +88,4 @@ const Student = () => {
   )
 }
 
-export default Student
+export default ClassStudent
